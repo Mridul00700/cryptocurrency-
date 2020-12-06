@@ -8,17 +8,20 @@ function App() {
 
   const [coins, setCoins] = useState([]);
   const [search, setSearch] = useState('');
-  
 
-  useEffect(() => (async () => {
-    const response = await axios.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&order=market_cap_desc&per_page=100&page=1&sparkline=false");
-    try {
-      setCoins(response.data);
-    }
-    catch (e) {
-      console.log(e);
-    }
-  }), []);
+
+  useEffect(() => {
+    async function fetch() {
+
+      const response = await axios.get("https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&order=market_cap_desc&per_page=100&page=1&sparkline=false");
+      try {
+        setCoins(response.data);
+      }
+      catch (e) {
+        console.log(e);
+      }
+    } fetch();
+  }, []);
 
   const handleChange = (e) => {
     setSearch(e.target.value);
